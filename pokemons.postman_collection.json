@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "89961041-35a8-4ff3-97ec-47630326faed",
+		"name": "pokemons",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27727347"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/pokemon/id/7",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pokemon/id/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pokemon",
+						"id",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://pokeapi.co/api/v2/pokemon?count=1302",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://pokeapi.co/api/v2/pokemon?count=1302",
+					"protocol": "https",
+					"host": [
+						"pokeapi",
+						"co"
+					],
+					"path": [
+						"api",
+						"v2",
+						"pokemon"
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "1302"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/pokemon/name/squirtle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pokemon/name/squirtle",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pokemon",
+						"name",
+						"squirtle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/pokemon/add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"brabrabra\",\n    \"urlPokemon\": \"aaaaaaaaaaaaaaaaaaaaa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pokemon/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pokemon",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/pokemon/update/21",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"brabrabra\",\n    \"urlPokemon\": \"blablablablabla\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pokemon/update/21",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pokemon",
+						"update",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/pokemon/delete/21",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pokemon/delete/21",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pokemon",
+						"delete",
+						"21"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
