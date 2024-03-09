@@ -1,14 +1,14 @@
-package consumer;
+package app.restfulapi.consumer;
 
+import app.restfulapi.dto.PokemonDTO;
+import app.restfulapi.entity.Pokemon;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
-import repositories.PokemonRepo;
+import app.restfulapi.repositories.PokemonRepo;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,7 +22,6 @@ public class ApiConsumer {
         this.pokemonRepo = pokemonRepo;
     }
     String apiUrl = "https://pokeapi.co/api/v2/pokemon?count=1302";
-    List<Pokemon> pokemonList = new ArrayList<>();
 
     public void consumeApi(){
         try{
@@ -31,32 +30,30 @@ public class ApiConsumer {
             connection.setRequestMethod("GET");
             connection.connect();
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(response.toString());
-            JsonNode resultsNode = rootNode.get("results");
+            JsonNode resultsNode = getJsonNode(connection);
 
             for (JsonNode pokemonNode : resultsNode) {
                 String name = pokemonNode.get("name").asText();
                 String urlPokemon = pokemonNode.get("url").asText();
-                pokemonList.add(new Pokemon(name, urlPokemon));
-                pokemonRepo.save(new Pokemon(name, urlPokemon));
+                pokemonRepo.save(new Pokemon(0,name, urlPokemon));//todo wtf this is wrong
             }
-
-            for (Pokemon pokemon : pokemonList) {
-                System.out.println("Name: " + pokemon.getName() + ", URL: " + pokemon.getUrlPokemon());
-            }
-
             connection.disconnect();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static JsonNode getJsonNode(HttpURLConnection connection) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(response.toString());
+        return rootNode.get("results");
     }
 }

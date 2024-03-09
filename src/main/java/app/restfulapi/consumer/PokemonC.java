@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pokemon {
+public class PokemonC {
     String name;
     String urlPokemon;
 }
